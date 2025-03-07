@@ -1,1 +1,2 @@
-Иди ко мне, солнце, расплетай косы
+This is decrypt-mflac-frida multithreading edition.  
+For learning cryptography only.
