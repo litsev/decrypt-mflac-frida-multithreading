@@ -11,22 +11,26 @@ script = session.create_script(open("hook_qq_music.js", "r", encoding="utf-8").r
 script.load()
 
 # 创建输出目录
-output_dir = "output"
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+# output_dir = "output"
+# if not os.path.exists(output_dir):
+#     os.makedirs(output_dir)
+output_dir = "C:\\Users\\litsev\\Music"
 
 # 获取用户音乐目录路径
-home = str(Path.home()) + "\\Music\\VipSongsDownload"
+# home = str(Path.home()) + "\\Music\\VipSongsDownload"
+home = "C:\\Users\\litsev\\Music\\VipSongsDownload"
 home = os.path.abspath(home)
 
 # 遍历目录下的所有文件
 for root, dirs, files in os.walk(home):
+    i = 0
+    num = len(files)
     for file in files:
         file_path = os.path.splitext(file)
-        
+        i = i + 1
         # 只处理 .mflac 和 .mgg 文件
         if file_path[-1] in [".mflac", ".mgg"]:
-            print("Decrypting", file)
+            print(f"Decrypting {i}/{num}", file)
             
             # 修改文件扩展名
             file_path = list(file_path)
@@ -34,9 +38,10 @@ for root, dirs, files in os.walk(home):
             file_path_str = "".join(file_path)
             
             # 检查解密文件是否已经存在
+            # output_file_path = os.path.join(output_dir, file_path_str)
             output_file_path = os.path.join(output_dir, file_path_str)
             if os.path.exists(output_file_path):
-                print(f"File {output_file_path} 已存在，跳过.")
+                print(f"{i}/{num} File {output_file_path} 已存在，跳过.")
                 continue
 
             tmp_file_path = hashlib.md5(file.encode()).hexdigest()
